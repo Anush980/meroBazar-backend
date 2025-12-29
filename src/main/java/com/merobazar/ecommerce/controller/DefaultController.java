@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DefaultController {
 
-    @GetMapping("/api/")
+    @GetMapping("/api/health")
     public String getString(){
         return "Welcome to MeroBazar Api.";
     }
