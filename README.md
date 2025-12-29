@@ -1,7 +1,7 @@
 # MeroBazar Ecommerce Backend
 
-[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-dark?style=flat-square)](https://github.com/YourGitHubUsername)  
-![GitHub last commit](https://img.shields.io/github/last-commit/Anush980/meroBazar-backend?style=flat-square)  
+[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-dark?style=flat-square)](https://github.com/YourGitHubUsername)&nbsp;&nbsp;
+[![GitHub last commit](https://img.shields.io/github/last-commit/Anush980/meroBazar-backend?style=flat-square)](https://github.com/Anush980/meroBazar-backend)
 
 The backend for **MeroBazar Ecommerce**, built with **Java Spring Boot**, **Spring Security**, and **PostgreSQL**. This API handles user authentication for now!
 
@@ -9,9 +9,9 @@ The backend for **MeroBazar Ecommerce**, built with **Java Spring Boot**, **Spri
 
 ## 🛠 Technologies Used (Backend)
 
-![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white)  
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=spring&logoColor=white)  
-![PostgreSQL](https://img.shields.io/badge/PostgresSQL-4479A1?style=flat-square&logo=postgreSql&logoColor=white)  
+![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white) &nbsp;&nbsp; 
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=spring&logoColor=white)  &nbsp;&nbsp;
+![PostgreSQL](https://img.shields.io/badge/PostgresSQL-4479A1?style=flat-square&logo=postgreSql&logoColor=white)  &nbsp;&nbsp;
 ![Maven](https://img.shields.io/badge/Maven-C71A36?style=flat-square&logo=apache-maven&logoColor=white)  
 
 <!-- ---
