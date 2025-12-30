@@ -5,6 +5,7 @@ import com.merobazar.ecommerce.service.UserService;
 import com.merobazar.ecommerce.dto.ApiResponse;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +13,9 @@ import java.util.UUID;
 
 
 
-
 @RestController
-@RequestMapping("/api/users")
+@PreAuthorize("hasRole('ADMIN')")
+@RequestMapping("/api/admin/users")
 public class UserController {
     private final UserService service;
 
