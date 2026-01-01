@@ -1,4 +1,5 @@
 package com.merobazar.ecommerce.security;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,13 +13,13 @@ import com.merobazar.ecommerce.repository.UserRepository;
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository){
-this.userRepository=userRepository;
-    } 
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String emailOrPhone) throws UsernameNotFoundException{
-  User user = userRepository.findByEmail(emailOrPhone)
+    public UserDetails loadUserByUsername(String emailOrPhone) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(emailOrPhone)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return org.springframework.security.core.userdetails.User
@@ -27,5 +28,4 @@ this.userRepository=userRepository;
                 .authorities("ROLE_" + user.getRole())
                 .build();
     }
-    }
-    
+}

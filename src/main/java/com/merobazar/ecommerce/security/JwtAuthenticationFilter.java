@@ -21,43 +21,44 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    //dependenices
+    // dependenices
     private final JwtUtil jwtUtil;
     private final UserService userService;
 
-    //constructor injection
+    // constructor injection
     public JwtAuthenticationFilter(JwtUtil jwtUtil, UserService userService) {
-        this.jwtUtil = jwtUtil; //dependency injection
+        this.jwtUtil = jwtUtil; // dependency injection
         this.userService = userService;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                     HttpServletResponse response,
-                                      FilterChain filterChain)throws ServletException, IOException {
-                                        
-        String authHeader = request.getHeader("Authorization");//read the authorization header from the request
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
 
-        if (authHeader != null && authHeader.startsWith("Bearer")) { //check if header starts with bearer
-            String token = authHeader.substring(7);//removes the bearer part to get the token only
+        String authHeader = request.getHeader("Authorization");// read the authorization header from the request
 
-            if (jwtUtil.validateToken(token)) { //validate the token 
-                UUID userId = jwtUtil.getUserId(token); //extracts the userId from token
+        if (authHeader != null && authHeader.startsWith("Bearer")) { // check if header starts with bearer
+            String token = authHeader.substring(7);// removes the bearer part to get the token only
+
+            if (jwtUtil.validateToken(token)) { // validate the token
+                UUID userId = jwtUtil.getUserId(token); // extracts the userId from token
                 User user = userService.getUser(userId);
 
-                //if user exists then create a spring security authentication object
+                // if user exists then create a spring security authentication object
                 if (user != null) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user,
                             null,
                             List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole())));
 
-                         //   sets the authentication in spring secruity context
+                    // sets the authentication in spring secruity context
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         }
-        //this is important!! it continues the filter chain 
-        //if we missed it  then the request will stop here and never reach to the controller
+        // this is important!! it continues the filter chain
+        // if we missed it then the request will stop here and never reach to the
+        // controller
         filterChain.doFilter(request, response);
 
     }

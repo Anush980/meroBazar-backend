@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-
-
 @RestController
 @PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/api/admin/users")
@@ -23,61 +21,56 @@ public class UserController {
         this.service = service;
     }
 
-    //Get all users
+    // Get all users
     @GetMapping
-    public ResponseEntity<List<User>> getAll(){
+    public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.ok(service.getAllUsers());
     }
 
-    //Get user by id
+    // Get user by id
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<User>> getOne(@PathVariable UUID id){
+    public ResponseEntity<ApiResponse<User>> getOne(@PathVariable UUID id) {
         User user = service.getUser(id);
-        if(user==null){
+        if (user == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new ApiResponse<>("User found.",user));
+        return ResponseEntity.ok(new ApiResponse<>("User found.", user));
     }
 
-    //Create user
+    // Create user
     @PostMapping
-    public ResponseEntity<ApiResponse<User>> create(@RequestBody User user){
+    public ResponseEntity<ApiResponse<User>> create(@RequestBody User user) {
         User savedUser = service.saveUser(user);
         ApiResponse<User> response = new ApiResponse<>("User created successfully.", savedUser);
         return ResponseEntity.status(201).body(response);
     }
 
-    //Update user 
+    // Update user
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable UUID id, @RequestBody User updatedUser) {
-       User existingUser = service.getUser(id);
+        User existingUser = service.getUser(id);
 
-       if(existingUser==null){
-        return ResponseEntity.notFound().build();
-       }
+        if (existingUser == null) {
+            return ResponseEntity.notFound().build();
+        }
 
-       existingUser.setName(updatedUser.getName());
-       existingUser.setEmail(updatedUser.getEmail());
-       existingUser.setPhone(updatedUser.getPhone());
+        existingUser.setName(updatedUser.getName());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPhone(updatedUser.getPhone());
 
-       User saved = service.saveUser(existingUser);
-       return ResponseEntity.ok(new ApiResponse<>("User data updated successfully.",saved));
+        User saved = service.saveUser(existingUser);
+        return ResponseEntity.ok(new ApiResponse<>("User data updated successfully.", saved));
     }
 
-    //soft delete user
+    // soft delete user
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable UUID id){
+    public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
         boolean deleted = service.deactivateUser(id);
 
-        if(!deleted){
+        if (!deleted) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok("User deleted successfully.");
     }
-    
-    
 
-
-  
-    
 }
