@@ -3,6 +3,7 @@ package com.merobazar.ecommerce.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,7 +24,7 @@ public class User {
 
     private String name;
 
-    @Column(unique = true,nullable = true)
+    @Column(unique = true, nullable = true)
     private String email;
 
     @Column(unique = true)
@@ -38,18 +39,23 @@ public class User {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Store> stores;
+
     @CreationTimestamp
-    @Column(name = "created_at",updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-     @PrePersist
+    @PrePersist
     protected void onCreate() {
-        if (isActive == null) isActive = true;
-        if (role == null) role = UserRole.BUYER;
+        if (isActive == null)
+            isActive = true;
+        if (role == null)
+            role = UserRole.BUYER;
     }
 
     public enum UserRole {
