@@ -2,6 +2,8 @@ package com.merobazar.ecommerce.repository;
 
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -26,13 +28,15 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
 
     // buyers (only active products)
-    List<Product> findByNameAndIsActiveTrue(String name);
+    Page<Product> findByNameContainingIgnoreCaseAndIsActiveTrue(String name,Pageable pageable);
 
-    List<Product> findByStoreIsActiveTrue(Store store);
+    Page<Product> findByStoreIdAndIsActiveTrue(UUID storeId,Pageable pageable);
 
-    List<Product> findByBasePriceBetweenAndIsActiveTrue(BigDecimal minPrice, BigDecimal maxPrice);
+      Page<Product> findByCategoryIdAndIsActiveTrue(UUID categoryId,Pageable pageable);
 
-    List<Product> findByBasePriceIsActiveTrue(BigDecimal basePrice);
+    Page<Product> findByBasePriceBetweenAndIsActiveTrue(BigDecimal minPrice, BigDecimal maxPrice,Pageable pageable);
+
+    Page<Product> findByBasePriceIsActiveTrue(BigDecimal basePrice,Pageable pageable);
 
 
     // Sorting
